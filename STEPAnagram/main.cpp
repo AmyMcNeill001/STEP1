@@ -24,8 +24,6 @@ int main()
         cout << "Please enter exactly 16 letters: ";
         cin >> inputWord;
         
-        cout << "Reading fine" << endl;
-        
         //exception handling
         if (inputWord.length() != 16)
             throw notSixteen;
@@ -51,16 +49,7 @@ int main()
                 
                else
                {
-                   cout << "Getting to else statement" << endl;
-                   //boolean array to avoid invalid double letter
-                   bool inputBin[15];
-                   
-                   for(int ii = 0; ii < 16; ii++)
-                   {
-                       inputBin[ii] = false;
-                   }
-                   
-                   cout << "Initializing inputBin fine" << endl;
+
                    //binary array to ensure every letter is in the input
                    bool* binary = new bool[dictionaryWord.length()];
                    for (int ii = 0; ii < dictionaryWord.length(); ii++)
@@ -68,35 +57,48 @@ int main()
                        binary[ii] = false;
                    }
                    
-                   cout << "No issue with dynamic allocation" << endl;
+                   //binary array to guard against invalid repeats
+                   bool inputBin[16];
+                   inputBin[0] = true;
+                   inputBin[1] = true;
+                   inputBin[2] = true;
+                   inputBin[3] = true;
+                   inputBin[4] = true;
+                   inputBin[5] = true;
+                   inputBin[6] = true;
+                   inputBin[7] = true;
+                   inputBin[8] = true;
+                   inputBin[9] = true;
+                   inputBin[10] = true;
+                   inputBin[11] = true;
+                   inputBin[12] = true;
+                   inputBin[13] = true;
+                   inputBin[14] = true;
+                   inputBin[15] = true;
+              
                    
                    for(int ii = 0; ii < dictionaryWord.length(); ii++)
                    {
                        for(int xx = 0; xx < 16; xx++)
                        {
-                           cout << "ii: " << ii << "xx: " << xx << endl;
-                           cout << "InputBin: " << inputBin[xx] << endl;
-                           cout << "inputword: " << inputWord[xx] << endl;
-                          if(inputBin[xx] == false && dictionaryWord[ii] == inputWord[xx])
+                           if(inputBin[xx] == true && dictionaryWord[ii] == inputWord[xx])
                           {
                               binary[ii] = true;
-                              inputBin[xx] = true;
+                              inputBin[xx] = false;
                           }//END if statement for new match found
                        }//END for loop for comparison of each letter (inner)
                    }//END for loop for comparison of each letter (outer)
                    
-                   cout << "Making it past checkpoint 1" << endl;
                    bool flag = false;
-                   cout << "bool assignment fine" << endl;
                    for (int ii = 0; ii < dictionaryWord.length(); ii++)
                    {
-                       cout << "For loop entered: " << ii << " times" << endl;
                        if(binary[ii] == false)
                        {
                            flag = true;
                        }
                    }
-                   delete binary;
+        
+                   delete [] binary;
                    
                    if(flag == false && dictionaryWord.length() > winner.length())
                        winner = dictionaryWord;
