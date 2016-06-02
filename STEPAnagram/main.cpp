@@ -37,7 +37,7 @@ int main()
             try
             {
                inFileStream >> dictionaryWord;
-            
+                
                if(dictionaryWord.length() > 16)
                    throw wordTooLong;
                 
@@ -58,33 +58,23 @@ int main()
                    }
                    
                    //binary array to guard against invalid repeats
-                   bool inputBin[16];
-                   inputBin[0] = true;
-                   inputBin[1] = true;
-                   inputBin[2] = true;
-                   inputBin[3] = true;
-                   inputBin[4] = true;
-                   inputBin[5] = true;
-                   inputBin[6] = true;
-                   inputBin[7] = true;
-                   inputBin[8] = true;
-                   inputBin[9] = true;
-                   inputBin[10] = true;
-                   inputBin[11] = true;
-                   inputBin[12] = true;
-                   inputBin[13] = true;
-                   inputBin[14] = true;
-                   inputBin[15] = true;
-              
-                   
+                   bool inputBin[16] = {true, true, true, true, true, true, true, true, true, true,
+                       true, true, true, true, true, true};
+           
                    for(int ii = 0; ii < dictionaryWord.length(); ii++)
                    {
+                       bool matchFound = false;
                        for(int xx = 0; xx < 16; xx++)
                        {
-                           if(inputBin[xx] == true && dictionaryWord[ii] == inputWord[xx])
+                          if (matchFound)
+                          {
+                              //nothing
+                          }
+                          else if((inputBin[xx] == true) && (dictionaryWord[ii] == inputWord[xx]))
                           {
                               binary[ii] = true;
                               inputBin[xx] = false;
+                              matchFound = true;
                           }//END if statement for new match found
                        }//END for loop for comparison of each letter (inner)
                    }//END for loop for comparison of each letter (outer)
